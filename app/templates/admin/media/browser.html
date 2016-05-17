@@ -1,0 +1,74 @@
+{% extends 'admin/master.html' %}
+
+{% block head_tail %}
+    {{ super() }}
+
+    <script type="text/javascript">
+        function insertImage(src){
+            window.opener.CKEDITOR.tools.callFunction({{ CKEditorFuncNum }}, src, '');
+            window.close();
+        }
+    </script>
+    <style type="text/css">
+        .navbar {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block main_menu %}{% endblock %}
+{% block menu_links %}{% endblock %}
+{% block brand %}{% endblock %}
+
+{% block body %}
+    {% block breadcrums %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ get_dir_url('.index', path=None) }}">{{ _gettext('Root') }}</a>
+        </li>
+        {% for name, path in breadcrumbs[:-1] %}
+        <li>
+            <a href="{{ get_dir_url('.index', path=path) }}">{{ name }}</a>
+        </li>
+        {% endfor %}
+        {% if breadcrumbs %}
+        <li>
+            <a href="{{ get_dir_url('.index', path=breadcrumbs[-1][1]) }}">{{ breadcrumbs[-1][0] }}</a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endblock %}
+
+    {% block file_list_table %}
+    <table class="table table-striped table-bordered model-list">
+        <thead>
+            <tr>
+                {% block list_header scoped %}
+                <th>{{ _gettext('Name') }}</th>
+                <th>{{ _gettext('Size') }}</th>
+                {% endblock %}
+            </tr>
+        </thead>
+        {% for name, path, is_dir, size, date in items %}
+        <tr>
+            {% block list_row scoped %}
+            {% if is_dir %}
+            <td colspan="2">
+                <a href="{{ get_dir_url('.browser', path, CKEditorFuncNum=CKEditorFuncNum)|safe }}">
+                    <i class="fa fa-folder-o glyphicon glyphicon-folder-close"></i> <span>{{ name }}</span>
+                </a>
+            </td>
+            {% else %}
+            <td>
+                 <a href="javascript:void(0);" onclick="return insertImage('{{ get_file_url(path)|safe }}')">{{ name }}</a>
+            </td>
+            <td>
+                {{ size|filesizeformat }}
+            </td>
+            {% endif %}
+            {% endblock %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+{% endblock %}

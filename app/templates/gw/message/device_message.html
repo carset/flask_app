@@ -1,0 +1,25 @@
+{% extends 'gw/message/base.html' %}
+
+{% block type %}
+    <MsgType><![CDATA[news]]></MsgType>
+{% endblock %}
+
+{% block body %}
+    {% if devices %}
+        <ArticleCount>{{ count }}</ArticleCount>
+        <Articles>
+            {% for device in devices %}
+                <item>
+                    <Title><![CDATA[{{ device.name }}]]></Title>
+                    <Description><![CDATA[{{ device.description }}]]></Description>
+                    <PicUrl>
+                        <![CDATA[{{ '%s%s' % (config.get('SITE_URI'),  url_for('static', filename='upload/%s' % device.image_path )) }}]]>
+                    </PicUrl>
+                    <Url>
+                        <![CDATA[{{ '%s%s' % (config.get('SITE_URI'),  url_for('dev_act.detail', code=device.random_code)) }}]]>
+                    </Url>
+                </item>
+            {% endfor %}
+        </Articles>
+    {% endif %}
+{% endblock %}

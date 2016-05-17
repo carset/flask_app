@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    {% block header %}
+        {% block title %}<title>ENBOSO-MMS</title>{% endblock %}
+        <link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/0.4.2/weui.min.css"/>
+        {% block script %}
+            <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        {% endblock %}
+        {% block script_ext %}
+            <script type="text/javascript">
+                wx.config({
+                    debug: false,
+                    jsApiList: ['closeWindow'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+            </script>
+        {% endblock %}
+    {% endblock %}
+    {% block style_ext %}{% endblock %}
+</head>
+<body ontouchstart>
+{% block content %}
+    <div class="weui_msg">
+        <div class="weui_icon_area"><i class="weui_icon_warn weui_icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui_msg_title">您的微信号还未授权，授权请联系我司,客户服务电话: 0755-26687447</h2>
+        </div>
+        <div class="weui_opr_area">
+            <p class="weui_btn_area">
+                <a href="javascript:wx.closeWindow();" class="weui_btn weui_btn_primary">返回</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

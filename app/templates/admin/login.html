@@ -1,0 +1,30 @@
+{% extends 'admin/master.html' %}
+
+{% block head_tail %}
+    {{ super() }}
+    <style type="text/css">
+    body{text-align:center}
+    .login_form{margin:0 auto} 
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="login_form">
+    <h1>登陆</h1>
+    <form action="" method="post" name="login">
+         {{ form.hidden_tag() }}
+        <p>
+            账号:
+            {{form.account(size=80)}}<br>
+        </p>
+        <p>
+            密码:
+            {{form.password(size=80)}}<br>
+        </p>
+        <p>
+        </p>
+        <p>{{form.remember_me}} 记住我</p>
+        <p><input type="submit" value="登录"></p>
+    </form>
+</div>
+{% endblock %}

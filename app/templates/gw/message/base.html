@@ -1,0 +1,11 @@
+<xml>
+    {% block base %}
+        <ToUserName><![CDATA[{{ to_user }}]]></ToUserName>
+        <FromUserName><![CDATA[{{ from_user }}]]></FromUserName>
+        <CreateTime>{{ create_time|strftime }}</CreateTime>
+    {% endblock %}
+    {% block type %}
+        <MsgType><![CDATA[text]]></MsgType>
+    {% endblock %}
+    {% block body %}{% endblock %}
+</xml>
